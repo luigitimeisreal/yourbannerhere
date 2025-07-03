@@ -1,0 +1,18 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+}
+
+.loginButton {
+  margin: 10px;
+  text-align: center;
+  background-color: rgb(144, 209, 202);
+  border: none;
+  color: white;
+  font-size: x-large;
+  padding: 7px;
+  border-radius: 7px;
+  cursor: pointer;
+}
