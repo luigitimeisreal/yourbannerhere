@@ -1,15 +1,36 @@
+@if(this.notCoincidentPassword) {
+  <alert textError="The passwords aren't the same"/>
+}@else if(this.errorsInFields) {
+  <alert textError="There are errors in some fields"/>
+}
 <div class="container">
   <div class="box">
     <h3 class="header">Register</h3>
-    <form action="">
-      <label for="fname">User/Company name: </label><br>
-      <input type="text" class="input-text"><br>
-      <label for="fname">E-mail</label><br>
-      <input type="text" class="input-text"><br>
-      <label for="fname">Password</label><br>
-      <input type="password" class="input-text"><br>
-      <label for="fname">Confirm Password</label><br>
-      <input type="password" class="input-text"><br>
+    <form [formGroup]="userData" action="" (ngSubmit)="register()">
+      <label for="username">User/Company nameg: </label><br>
+      <input type="text" name="username" formControlName="username" class="input-text"><br>
+      @for (err of errors; track $index) {
+        @if(userData.get('username')?.hasError(err.type) && userData.get('username')?.touched) {
+          <p class="text-red">{{err.message}}</p>
+        }
+      }
+      <label for="email">E-mail address</label><br>
+      <input type="email" id="email" name="email" autocomplete="email" formControlName="email" class="input-text"><br>
+      @for (err of errors; track $index) {
+        @if(userData.get('email')?.hasError(err.type) && userData.get('email')?.touched) {
+          <p class="text-red">{{err.message}}</p>
+        }
+      }
+      <label for="password">Password</label><br>
+      <input type="password" id="password" name="password" class="input-text" formControlName="password"><br>
+      @if(userData.get('password')?.hasError("required") && userData.get('password')?.touched) {
+        <p class="text-red">Password is required</p>
+      }
+      <label for="passwordConfirmation">Confirm Password</label><br>
+      <input type="password" id="passwordConfirmation" name="passwordConfirmation" class="input-text" formControlName="passwordConfirmation"><br>
+      @if(userData.get('passwordConfirmation')?.hasError("required") && userData.get('passwordConfirmation')?.touched) {
+        <p class="text-red">Password is required</p>
+      }
       <button class="registerButton">Register</button>
       <p>If you already have an account, <a routerLink="/auth/login">Log in</a></p>
     </form>
