@@ -13,6 +13,7 @@ export class Register {
 
   notCoincidentPassword = false;
   errorsInFields = false;
+  userNameAlreadyExists = false;
 
   errors = [
     {type: "required", message: "Field must not be empty"},
@@ -30,17 +31,22 @@ export class Register {
 
   register() {
     console.log(this.userData.value);
+    // Passwords are not the same
     if (this.userData.value.password !== this.userData.value.passwordConfirmation) {
       this.notCoincidentPassword = true;
       setTimeout(() => {
         this.notCoincidentPassword = false;
       }, 4000);
+      return;
     }
+    // Errors in some fields
     if (!this.userData.valid) {
       this.errorsInFields = true;
       setTimeout(() => {
         this.errorsInFields = false;
       }, 4000);
+      return;
     }
+    
   }
 }
